@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music player</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+        integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <contenar>
+        <div class="main_class">
+            <h2 id="titles">Raataan Lambiyan</h2>
+            <h3 id="artist">Tanishk Bagchi, Jubin Nautiyal, Asees Kaur</h3>
+            <div class="imagealbum"><img
+                    src="https://a10.gaanacdn.com/gn_img/song/lJvKa56KDV/vKa91Z1RKD/size_l_1628085090.jpg"
+                    title="image"></div>
+            <audio src="https://pagalfree.com/musics/128-Raataan%20Lambiyan%20-%20Shershaah%20128%20Kbps.mp3"></audio>
+            <div class="afont">
+                <i class="fas fa-backward back" id="backward"></i>
+                <i class="fas fa-play play" id="play"></i>
+                <i class="fas fa-forward forward" id="forward"></i>
+            </div>
+        </div>
+    </contenar>
+
+    <script>
+        const music = document.querySelector("audio");
+        const play = document.getElementById("play");
+        const img = document.querySelector("img");
+        const artist = document.getElementById("artist");
+        const titles = document.getElementById("titles");
+        const backward = document.getElementById("backward");
+        const forward = document.getElementById("forward");
+        const songs = [{
+            name: "https://pagalfree.com/musics/128-Raataan%20Lambiyan%20-%20Shershaah%20128%20Kbps.mp3",
+            titles: "Raataan Lambiyan",
+            artist: "Tanishk Bagchi, Jubin Nautiyal, Asees Kaur",
+            img:"https://a10.gaanacdn.com/gn_img/song/lJvKa56KDV/vKa91Z1RKD/size_l_1628085090.jpg",
+        },
+        {
+            name: "https://pagalsong.in/uploads/systemuploads/mp3/Shershaah/Mann%20Bharryaa%202.0%20-%20Shershaah%20128%20Kbps.mp3",
+            titles: "Mann Bharryaa 2.0 - Shershaah mp3 songs",
+            artist: "B praak",
+            img:"https://pagalsong.in/uploads//thumbnails/300x300/id3Picture_865930632.jpg",
+        },
+        {
+            name: "https://pagalworld.com.se/files/download/id/3161",
+            titles: "Jannat Ve",
+            artist: "Darshan Raval,",
+            img:"https://pagalworld.com.se/siteuploads/thumb/sft7/3161_4.jpg",
+        },
+        {
+            name: "https://paglasongs.com/files/download/id/1855",
+            titles: "Dil Chahte Ho",
+            artist: "Jubin Nautiyal, Payal Dev",
+            img:"https://paglasongs.com/uploads/thumb/sft4/1855_4.jpg",
+        },
+        ];
+
+        let isPlaying = false;
+        function pauseMusic() {
+            music.play();
+            isPlaying = true;
+            play.classList.replace("fa-play", "fa-pause");
+            img.classList.add("anime");
+
+        }
+        function playMusic() {
+            music.pause();
+            isPlaying = false;
+            play.classList.replace("fa-pause", "fa-play");
+            img.classList.remove("anime");
+
+        }
+        play.addEventListener('click', () => {
+            if (isPlaying) {
+                playMusic();
+            }
+            else {
+                pauseMusic();
+            }
+        });
+        //changing 
+        const loadSong = (songs) => {
+            titles.textContent = songs.titles;
+            artist.textContent = songs.artist;
+            music.src = songs.name;
+            img.src=songs.img;
+        }
+
+        //loadSong(songs[2]);
+        songIndex = 0;
+        const forwardsong = () => {
+            songIndex = (songIndex + 1) % songs.length;
+            loadSong(songs[songIndex]);
+            pauseMusic();
+        };
+
+        const backwardsong = () => {
+            songIndex = (songIndex - 1 +songs.length) % songs.length;
+            loadSong(songs[songIndex]);
+            pauseMusic();
+        };
+        forward.addEventListener('click', forwardsong);
+        backward.addEventListener('click', backwardsong);
+    </script>
+</body>
+
+</html>
